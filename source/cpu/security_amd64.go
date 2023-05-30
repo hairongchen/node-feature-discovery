@@ -27,13 +27,11 @@ import (
 	"strings"
 
 	"github.com/klauspost/cpuid/v2"
-	"k8s.io/klog/v2"
 
 	"sigs.k8s.io/node-feature-discovery/pkg/utils/hostpath"
 )
 
 func discoverSecurity() map[string]string {
-	klog.Infof("In discoverSecurity")
 	elems := make(map[string]string)
 
 	// Set to 'true' based a non-zero sum value of SGX EPC section sizes. The
