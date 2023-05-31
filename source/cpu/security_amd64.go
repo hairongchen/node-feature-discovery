@@ -94,7 +94,7 @@ func tdxEnabled() bool {
 	// with a value different than "Y\n" assume TDX to be unavailable or
 	// disabled.
 
-	//detect evidence of TDX in host
+	//detect existence of TDX in host
 	protVirtHost := hostpath.SysfsDir.Path("module/kvm_intel/parameters/tdx")
 	if content, err := os.ReadFile(protVirtHost); err == nil {
 		if string(content) == "Y\n" {
@@ -102,11 +102,14 @@ func tdxEnabled() bool {
 		}
 	}
 
-	//detect evidence of TDX in guest
-	protVirtGuest := hostpath.SysfsDir.Path("module/tdx/parameters/tdx_trace_level")
-	if _, err := os.ReadFile(protVirtGuest); err == nil {
-		return true
+	//detect existence of TDX in guest
+	protVirtGuest := hostpath.ProcDir.Path("cpuinfo")
+	if content, err := os.ReadFile(protVirtGuest); err == nil {
+		if strings.Contains(string(content), "tdx_guest") {
+			return true
+		}
 	}
+
 	return false
 }
 

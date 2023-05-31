@@ -10,6 +10,9 @@
   - name: host-sys
     hostPath:
       path: "/sys"
+  - name: host-proc
+    hostPath:
+      path: "/proc"
   - name: host-usr-lib
     hostPath:
       path: "/usr/lib"
@@ -37,6 +40,9 @@
     readOnly: true
   - name: host-sys
     mountPath: "/host-sys"
+    readOnly: true
+  - name: host-proc
+    mountPath: "/host-proc"
     readOnly: true
   - name: host-usr-lib
     mountPath: "/host-usr/lib"
